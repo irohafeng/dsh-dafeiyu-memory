@@ -1,0 +1,19 @@
+# 依赖
+node_modules/
+
+# 打包产物
+*.tgz
+*.zip
+dist/
+
+# 开发资料，不进仓库
+memory/
+_ref/
+记忆设计.md
+样例记忆.jsonl
+
+# 日志和临时文件
+*.log
+待补.jsonl
+.DS_Store
+Thumbs.db
