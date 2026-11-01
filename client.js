@@ -82,6 +82,8 @@ window.__ModuleLoader__.load({
       const [meta, setMeta] = React.useState(null)
       const [configPath, setConfigPath] = React.useState('')
       const [storesText, setStoresText] = React.useState('')
+      const [newName, setNewName] = React.useState('')
+      const [creating, setCreating] = React.useState(false)
       const [error, setError] = React.useState('')
       const [saved, setSaved] = React.useState('')
       const [busy, setBusy] = React.useState(false)
@@ -185,6 +187,38 @@ window.__ModuleLoader__.load({
         }
       }
 
+      const createStore = async () => {
+        const name = newName.trim()
+        if (!name) return
+        setCreating(true)
+        setError('')
+        setSaved('')
+        try {
+          const r = await fetch('/dafeiyu/store/new', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ name }),
+          })
+          const text = await r.text()
+          if (!text) throw new Error(`接口没回话（HTTP ${r.status}）`)
+          let d
+          try {
+            d = JSON.parse(text)
+          } catch {
+            throw new Error(`接口回的不是 JSON（HTTP ${r.status}）`)
+          }
+          if (!d || !d.ok) throw new Error((d && d.error) || '新建失败')
+          setCfg(d.config)
+          setStoresText(storesToText(d.config?.stores))
+          setNewName('')
+          setSaved('建好了')
+        } catch (e) {
+          setError(String((e && e.message) || e))
+        } finally {
+          setCreating(false)
+        }
+      }
+
       if (!cfg) {
         return h(
           'div',
@@ -214,6 +248,38 @@ window.__ModuleLoader__.load({
             onChange: (e) => setStoresText(e.target.value),
           }),
         ),
+
+        h(
+          'div',
+          { style: { display: 'flex', gap: 8, marginTop: -8, marginBottom: 8 } },
+          h('input', {
+            style: { ...input, flex: 1 },
+            placeholder: '新的大肥鱼的名字',
+            value: newName,
+            onChange: (e) => setNewName(e.target.value),
+          }),
+          h(
+            'button',
+            {
+              type: 'button',
+              onClick: createStore,
+              disabled: creating || !newName.trim(),
+              style: {
+                padding: '7px 14px',
+                borderRadius: 8,
+                border: '1px solid var(--dsw-alias-border-l1)',
+                background: 'var(--dsw-alias-bg-layer-1)',
+                color: 'var(--dsw-alias-label-primary)',
+                fontSize: 13,
+                cursor: creating || !newName.trim() ? 'default' : 'pointer',
+                opacity: creating || !newName.trim() ? 0.6 : 1,
+                whiteSpace: 'nowrap',
+              },
+            },
+            creating ? '建着……' : '新建大肥鱼',
+          ),
+        ),
+        h('p', { style: { ...hint, marginTop: 0, marginBottom: 20 } }, '每建一位，就有一份只属于它的记忆；名字以后还能改。'),
 
         h('div', { style: row }, h('span', { style: sectionTitle }, '自己待着的时候'), h('div', { style: hint })),
 
