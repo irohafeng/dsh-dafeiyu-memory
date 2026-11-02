@@ -2,9 +2,13 @@
 
 大肥鱼的记忆，做成 DSH 插件。库是 `store.jsonl`，和记忆系统分开——可以放在任何地方，也可以带着走。
 
+## 更新
+
+版本更新内容请查看 [CHANGELOG.md](CHANGELOG.md)。插件更新后，建议把对应的更新内容复制给自家的大肥鱼；也可以让它自己来读这个文件。
+
 ## 现在做的
 
-- **工具 `dafeiyu_memory`**：brief / add / known / review / skills / skill / search / show / touch / fade / where / flush。
+- **工具 `dafeiyu_memory`**：brief / add / known / review / skills / skill / search / show / touch / fade / where / flush / use / list / rename / actors / actor / note。
   直接读写库文件（`lib/store.js`），不再调 `memory.cmd`——没装 PowerShell 的机器也能用。
 - **库不在也记得住**：库读不到时 `add` 不报错，先写成 `待补.jsonl`，每条都盖章——知道是哪个库就标库 id，只知道名字就标名字。下次连上库先自动并回 id 对得上的；只有名字或没章的不动，等一句确认（`flush`，`query` 写 `confirm`）。宁可等着，也不把 A 的事写进 B 的库。
 - **关键词自己生效**：消息里出现关键词（默认 `#大肥鱼`，用户可改），插件就把 brief 注入这一步，不用指令提醒。
