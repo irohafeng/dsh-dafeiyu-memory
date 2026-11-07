@@ -31,7 +31,7 @@
 
 会话里用一个工具 `dafeiyu_memory`，用 action 决定做什么：
 
-`brief` 想起来、`add` 记一条、`known` 看心得、`review` 通读、`search` 按词找、`show` 按 id 看、`touch` / `fade` 牵一下 / 淡出、`skills` / `skill` 技能、`actors` / `actor` / `note` 认识的人、`where` 库在哪、`flush` 并待补、`use` / `list` 换库 / 列库、`rename` 给库改名。
+`brief` 想起来、`add` 记一条情节、`learn` 记一条心得、`known` 看心得、`review` 通读、`search` 按词找、`show` 按 id 看、`touch` / `fade` 牵一下 / 淡出、`skills` / `skill` 技能、`actors` / `actor` / `note` 认识的人、`where` 库在哪、`flush` 并待补、`use` / `list` 换库 / 列库、`rename` 给库改名。
 
 ## 数据
 
