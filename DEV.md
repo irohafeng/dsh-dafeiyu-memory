@@ -52,6 +52,12 @@ node E:\鱼的插件\_整理\check-staged.mjs E:\鱼的插件\dsh-dafeiyu-memory
 
 写 json / yml 用 `edit` 或 `write`，**别用 PowerShell 的 `Set-Content -Encoding utf8`**——PS 5.1 写出来带 BOM。
 
+## 记在哪
+
+iroha 的话：**git 记结果，库记判断——两样都要，缺一样就只剩骨头。**
+
+提交信息写清了「改了什么」，但改之前的那个判断（为什么改、排掉过什么、哪条证据让我改主意）不进 git，进库里。反过来，库里那一条判断没有提交号指着，明天想查它凭什么成立，查不到。
+
 ## 提交身份
 
 两个库固定用同一个邮箱（`350764013+irohafeng@users.noreply.github.com`），名字区分人：
