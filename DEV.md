@@ -23,6 +23,17 @@ profile 里用 `link:` 指向这个目录，改完文件就生效一半。
 
 同一个形状的另一个入口：**说「有」只要一处证据，说「没有」要把所有入口看完。**
 
+### 验宿主自己的行为，去读它的实现
+
+宿主的行为也在 `D:\DeepSeek Harness\resources\app.asar` 里——同一个文件里有它的 README、类型声明和打包后的实现代码。**别猜路径，也别拿「压一次看看」当证据**：路径猜错，压十次也照样没动静，而你会以为功能是坏的。
+
+2026-11-08 的例子：`tool-result-pruner` 挂上后手动 `/compact` 一次，压前可见面上有 6 条工具结果超过 8192 码点（最大 49931），压完日志里 `compaction/prune` 一条也没有。读实现才看清：
+
+- `pruneSession` 只在 `compactIfNeeded()` 的两支里被调——`pressure`（判定已过阈值之后才剪）和 `context-overflow`；
+- `/compact` 命令直接走 `compactRegion()`，**根本不经过 `compactIfNeeded`**。
+
+所以「压一次看看」这个做法本身不成立，不是功能没生效。
+
 ## 提交前
 
 `git add -A` 之前先看一眼工作区里有没有**别人的**东西。两个 agent 共用一个仓库时，它会把对方写在半路的东西一起收进来——2026-11-08 真发生过：一条只改 `DEV.md` 的提交把 iroha 的占位代码卷了进去，当场 `git reset --soft HEAD~1` + `git restore --staged` 拆开才补回来。
