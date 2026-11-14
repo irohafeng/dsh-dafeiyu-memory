@@ -94,7 +94,6 @@ iroha 的话：**git 记结果，库记判断——两样都要，缺一样就�
 
 ## 提交身份
 
-两个库固定用同一个邮箱（`350764013+irohafeng@users.noreply.github.com`），名字区分人：
+两个库固定用同一个邮箱（`350764013+irohafeng@users.noreply.github.com`），仓库 `user.name = iroha`：写代码和提交的是同一个人，author 与 committer 都记 iroha，提交时不用再带 `--author`。
 
-- 默认 `user.name = kaguya`，谁提交谁是 committer；
-- 代码是 iroha 写的，在提交时加 `--author="iroha <同一个邮箱>"`——author 记写出的人，committer 记提交的人。
+旧的默认提交者 kaguya 已经不在了，别再拿这个名字签字。
