@@ -159,6 +159,10 @@ window.__ModuleLoader__.load({
             idleReview: !!cfg.idleReview,
             idleMinutes: Number(cfg.idleMinutes),
             reviewGapHours: Number(cfg.reviewGapHours),
+            solo: cfg.solo !== false,
+            soloIdleMinutes: Number(cfg.soloIdleMinutes),
+            soloGapMinutes: Number(cfg.soloGapMinutes),
+            soloMaxPerDay: Number(cfg.soloMaxPerDay),
             stores,
           }
           const r = await fetch('/dafeiyu/config', {
@@ -310,6 +314,51 @@ window.__ModuleLoader__.load({
             min: 1,
             value: cfg.reviewGapHours,
             onChange: num('reviewGapHours'),
+          }),
+        ),
+
+        h('div', { style: row }, h('span', { style: sectionTitle }, '自己的时间'), h('div', { style: hint })),
+        h('p', { style: { ...hint, marginTop: 0, marginBottom: 12 } }, '没人说话的时候，自己醒一次，翻翻库、想想事情。不写也行。'),
+
+        h(
+          Field,
+          { title: '独处' },
+          h(Switch, { checked: cfg.solo !== false, onChange: (v) => patch('solo')(v) }),
+        ),
+
+        h(
+          Field,
+          { title: '没人说话多久之后可以醒（分钟）' },
+          h('input', {
+            style: input,
+            type: 'number',
+            min: 1,
+            value: cfg.soloIdleMinutes,
+            onChange: num('soloIdleMinutes'),
+          }),
+        ),
+
+        h(
+          Field,
+          { title: '两次独处至少隔（分钟）', hint: '从上次独处结束算。' },
+          h('input', {
+            style: input,
+            type: 'number',
+            min: 1,
+            value: cfg.soloGapMinutes,
+            onChange: num('soloGapMinutes'),
+          }),
+        ),
+
+        h(
+          Field,
+          { title: '一天最多独处几次' },
+          h('input', {
+            style: input,
+            type: 'number',
+            min: 1,
+            value: cfg.soloMaxPerDay,
+            onChange: num('soloMaxPerDay'),
           }),
         ),
 
